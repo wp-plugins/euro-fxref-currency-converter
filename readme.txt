@@ -18,7 +18,9 @@ You can change from and to any of the supported currencies.
 
 The [currency_legal] shortcode outputs a disclaimer text and a link to the ECB eurofxref page.
 
-This plugin is based on the Xclamation Currency Converter Shortcode plugin which can be found at http://www.xclamationdesign.co.uk/free-currency-converter-shortcode-plugin-for-wordpress/ .
+This plugin is based on a plugin by [Xclamation](http://www.xclamationdesign.co.uk/free-currency-converter-shortcode-plugin-for-wordpress/).
+
+Also see https://github.com/joostdekeijzer/wp_eurofxref
 
 == Installation ==
 
@@ -47,9 +49,9 @@ The legal string can also be retrieved in PHP using `<?php echo EuroFxRef::legal
 * `iso`: boolean (true or false, default false); use ISO currency
       formatting
 * `show_from`: boolean (default true); show from amount in output
-* `between`: string (default '&nbsp;/&nbsp;' which is displayed as '
-      / ' in the browser); string between from and to amounts
-* `append`: string (default '&nbsp;*' which is displayed as ' *' in
+* `between`: string (default '&amp;nbsp;/&amp;nbsp;' which is displayed as 
+      '&nbsp;/&nbsp;' in the browser); string between from and to amounts
+* `append`: string (default '&amp;nbsp;*' which is displayed as '&nbsp;*' in
       the browser); string put after conversion. The * references the
       disclaimer text, see [currency_legal] shortcode.
 * `round: boolean` (default true); Round numbers to whole units.
