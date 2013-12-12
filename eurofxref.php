@@ -1,11 +1,13 @@
 <?php
 /*
   Plugin Name: Euro FxRef Currency Converter
-  Plugin URI: http://wordpress.org/extend/plugins/euro-fxref-currency-converter/
+  Plugin URI: http://wordpress.org/plugins/euro-fxref-currency-converter/
   Description: Adds the [currency] and [currency_legal] shortcodes to convert currencies based on the ECB reference exchange rates.
-  Version: 1.1
+  Version: 1.2.1
   Author: joostdekeijzer
   Author URI: http://dekeijzer.org/
+  License: GPLv2 or later
+  License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 /*
   Development code at https://github.com/joostdekeijzer/wp_eurofxref
@@ -43,9 +45,7 @@ class EuroFxRef {
 	static function legal_string( $atts ) {
 		$prepend = '* ';
 
-		if( is_string( $atts ) ) {
-			$prepend = $atts;
-		} else if( is_array( $atts ) && isset( $atts['prepend'] ) ) {
+		if( is_array( $atts ) && isset( $atts['prepend'] ) ) {
 			$prepend = $atts['prepend'];
 		}
 		return $prepend . __( 'For informational purposes only. Exchange rates may vary. Based on <a href="http://www.ecb.europa.eu/stats/eurofxref/" target="_blank">ECB reference rates</a>.', __CLASS__ );
@@ -136,7 +136,7 @@ class EuroFxRef {
 	'For informational purposes only. Exchange rates may vary. Based on <a href="http://www.ecb.europa.eu/stats/eurofxref/" target="_blank">ECB reference rates</a>.'</p>
 
 <p><strong>Need more help?</strong><br/>
-	Please visit <a href="http://wordpress.org/extend/plugins/euro-fxref-currency-converter/other_notes/" target="_blank">http://wordpress.org/extend/plugins/euro-fxref-currency-converter/other_notes/</a> for more examples and a full list of supported currencies.</p>
+	Please visit <a href="http://wordpress.org/plugins/euro-fxref-currency-converter/other_notes/" target="_blank">http://wordpress.org/plugins/euro-fxref-currency-converter/other_notes/</a> for more examples and a full list of supported currencies.</p>
 EOH;
 
 		$screen->add_help_tab( array(
@@ -147,7 +147,7 @@ EOH;
 	}
 
 	private function _loadEuroFxRef( $transient_label ) {
-		//This is aPHP(5)script example on how eurofxref-daily.xml can be parsed
+		//This is a PHP(5)script example on how eurofxref-daily.xml can be parsed
 		//the file is updated daily between 2.15 p.m. and 3.00 p.m. CET
 		
 		//Read eurofxref-daily.xml file in memory
