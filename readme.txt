@@ -3,8 +3,8 @@ Contributors: joostdekeijzer
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=joost@dekeijzer.org&item_name=eurofxref+WordPress+plugin&item_number=Joost+de+Keijzer&currency_code=EUR
 Tags: shortcode, currency converter, currency, converter, foreign exchange conversion, fx rate converter, ECB
 Requires at least: 3.3
-Tested up to:  3.5
-Stable tag: 1.1
+Tested up to:  3.9
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,7 +39,21 @@ The prepended '* ' (the same string as the [currency] append string) can be chan
 
 For example: `[currency_legal prepend='Please note: ']`
 
-The legal string can also be retrieved in PHP using `<?php echo EuroFxRef::legal_string( 'optional prepend string' ) ?>`
+**`legal_string` method**
+
+The legal string can also be retrieved in PHP
+
+*Usage*
+
+`<?php echo EuroFxRef::legal_string( $prepend ) ?>`
+
+*Parameters*
+
+* $prepend (string) The string to prepend the legal text with, default '* '
+
+*Return Value*
+
+(string) Legal text prepended with $prepend string.
 
 = currency shortcode =
 
@@ -62,6 +76,24 @@ The legal string can also be retrieved in PHP using `<?php echo EuroFxRef::legal
 
 Conversion from non-Euro to non-Euro is done through the Euro, so GBP to USD is calculated as GBP -> EUR -> USD.
 
+**`convert` method**
+
+Since v1.3, you can call the convertor staticly from PHP in your code.
+
+*Usage*
+
+`<?php EuroFxRef::convert( $amount, $from, $to ); ?>`
+
+*Parameters*
+
+* $amount (float) The amount of currency you want to convert.
+* $from (string) The currency code the amount is in, default EUR.
+* $to (string) The currency code the amount must be converted to, default USD
+
+*Return Value*
+
+(float) the converted value or 0 (zero) if any of the currency code's are not available.
+
 = Examples =
 * `[currency amount="875" from="EUR" to="GBP"]` 
   becomes "€ 875,= / £ 697.= *"
@@ -70,43 +102,45 @@ Conversion from non-Euro to non-Euro is done through the Euro, so GBP to USD is 
 * `[currency amount="875" from="GBP" to="USD" show_from=false round=false]` 
   becomes "$ 1,130.15 *"
 
+* `<?php $process_later = EuroFxRef::convert( 10, 'USD', 'GBP' ); ?>`
+  will return the raw numeric (float) value without formatting: `6.01877256317689468545495401485823094844818115234375`
+
 = Currently available currencies =
 
-See full list at http://www.ecb.europa.eu/stats/eurofxref/
-
-* `USD`    US dollar
-* `JPY`    Japanese yen
-* `BGN`    Bulgarian lev
-* `CZK`    Czech koruna
-* `DKK`    Danish krone
-* `GBP`    Pound sterling
-* `HUF`    Hungarian forint
-* `LTL`    Lithuanian litas
-* `LVL`    Latvian lats
-* `PLN`    Polish zloty
-* `RON`    New Romanian leu
-* `SEK`    Swedish krona
-* `CHF`    Swiss franc
-* `NOK`    Norwegian krone
-* `HRK`    Croatian kuna
-* `RUB`    Russian rouble
-* `TRY`    Turkish lira
-* `AUD`    Australian dollar
-* `BRL`    Brasilian real
-* `CAD`    Canadian dollar
-* `CNY`    Chinese yuan renminbi
-* `HKD`    Hong Kong dollar
-* `IDR`    Indonesian rupiah
-* `ILS`    Israeli shekel
-* `INR`    Indian rupee
-* `KRW`    South Korean won
-* `MXN`    Mexican peso
-* `MYR`    Malaysian ringgit
-* `NZD`    New Zealand dollar
-* `PHP`    Philippine peso
-* `SGD`    Singapore dollar
-* `THB`    Thai baht
-* `ZAR`    South African rand
+* `EUR`    Euro (&euro;)
+* `USD`    US Dollar ($)
+* `JPY`    Japanese Yen (&#165;)
+* `BGN`    Bulgarian Lev (ЛВ.)
+* `CZK`    Czech Republic Koruna (K&#269;)
+* `DKK`    Danish Krone (kr)
+* `GBP`    British Pound Sterling (&pound;)
+* `HUF`    Hungarian Forint (Ft)
+* `LTL`    Lithuanian Litas (Lt)
+* `LVL`    Latvian Lats (Ls)
+* `PLN`    Polish Zloty (z&#322;)
+* `RON`    New Romanian Leu (RON)
+* `SEK`    Swedish Krona (kr)
+* `CHF`    Swiss Franc (CHF)
+* `NOK`    Norwegian Krone (kr)
+* `HRK`    Croatian Kuna (kn)
+* `RUB`    Russian Rouble (py6.)
+* `TRY`    Turkish Lira (TL)
+* `AUD`    Australian Dollar ($)
+* `BRL`    Brasilian Real (R$)
+* `CAD`    Canadian Dollar ($)
+* `CNY`    Chinese Yuan (&#20803;)
+* `HKD`    Hong Kong Dollar ($)
+* `IDR`    Indonesian Rupiah (Rp)
+* `ILS`    Israeli New Sheqel (&#8362;)
+* `INR`    Indian Rupee (&#8377;)
+* `KRW`    South Korean Won (&#8361;)
+* `MXN`    Mexican Peso ($)
+* `MYR`    Malaysian Ringgit (RM)
+* `NZD`    New Zealand Dollar ($)
+* `PHP`    Philippine Peso (₱)
+* `SGD`    Singapore Dollar ($)
+* `THB`    Thai Baht (&#3647;)
+* `ZAR`    South African Rand (R)
 
 == Frequently Asked Questions ==
 
@@ -118,6 +152,18 @@ The rates are published for informational purposes only and exchange rates may v
 See http://www.ecb.europa.eu/stats/eurofxref/ for more information.
 
 == Changelog ==
+
+= 1.3 =
+* Rewrite, so now you can call the convertor staticly from PHP
+* Compatible with WordPress 3.9
+
+= 1.2.1 =
+* Compatible with WordPress 3.8
+
+= 1.2 =
+* bugfix where [currency_legal] default prepend "* " would not be added
+* updated plugin uri to new WordPress.org uri scheme
+* all currency symbols should be correct now (some in unicode)
 
 = 1.1 =
 * added help text to edit pages
